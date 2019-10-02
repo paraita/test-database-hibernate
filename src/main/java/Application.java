@@ -13,7 +13,7 @@ public class Application {
         logins.add(TestDatabaseHibernateLogin.builder().nom("Wohler").prenom("Paraita").age(34).userName("paraita").build());
         logins.add(TestDatabaseHibernateLogin.builder().nom("Toto").prenom("Tata").age(18).userName("titi").build());
         logins.add(TestDatabaseHibernateLogin.builder().nom("AZE").prenom("RTY").age(50).userName("azerty").build());
-        logins.forEach(x -> session.save(x));
+        logins.forEach(session::save);
         session.getTransaction().commit();
     }
 
@@ -25,9 +25,7 @@ public class Application {
         Query query = session.createQuery("from model.TestDatabaseHibernateLogin");
         List results = query.list();
 
-        for (Object o : results) {
-            System.out.println(o);
-        }
+        results.forEach(System.out::println);
 
         session.close();
         HibernateUtil.shutdown();
